@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Frontend Example</title>
+    <style>
+        body {
+            background-color: pink;
+            /* Replace with your desired color */
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.5.0/dist/web3.min.js"></script>
+</head>
+
+<body>
+    <h1>Operations Contract</h1>
+    <div>
+        <label><b>Initial Value:</b> </label>
+        <span id="initialValue"></span>
+    </div>
+    <br>
+    <div>
+        <label><b>Add Amount:</b> </label>
+        <input type="number" id="addInput">
+        <button onclick="add()">Add</button>
+    </div>
+    <br>
+    <div>
+        <label><b>Subtract Amount:</b> </label>
+        <input type="number" id="subtractInput">
+        <button onclick="subtract()">Subtract</button>
+    </div>
+
+    <script>
+        // Check if MetaMask is installed
+        if (typeof web3 !== 'undefined') {
+            web3 = new Web3(web3.currentProvider);
+        } else {
+            alert("Please install MetaMask to use this application!");
+        }
+
+        // Contract ABI (Application Binary Interface)
+        var contractABI = [
+                {
+                    "inputs": [
+                        {
+                            "internalType": "int256",
+                            "name": "value",
+                            "type": "int256"
+                        }
+                    ],
+                    "name": "addition",
+                    "outputs": [],
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "int256",
+                            "name": "value",
+                            "type": "int256"
+                        }
+                    ],
+                    "name": "subtract",
+                    "outputs": [],
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                },
+                {
+                    "inputs": [],
+                    "name": "getInitialValue",
+                    "outputs": [
+                        {
+                            "internalType": "int256",
+                            "name": "",
+                            "type": "int256"
+                        }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function"
+                }
+            ];
+
+        // Contract address deployed on Remix
+        var contractAddress = '0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6';
+
+        // Instantiate the contract
+        var contract = new web3.eth.Contract(contractABI, contractAddress);
+
+        // Get and display the initial value
+        contract.methods.getInitialValue().call().then(function (result) {
+            document.getElementById('initialValue').textContent = result;
+        });
+
+        // Add function
+        function add() {
+            var value = parseInt(document.getElementById('addInput').value);
+            web3.eth.requestAccounts()
+                .then(function (accounts) {
+                    var account = accounts[0];
+                    contract.methods.addition(value).send({ from: account })
+                        .then(function (result) {
+                            // Update the initial value on the frontend
+                            document.getElementById('initialValue').textContent = result.events.ValueChanged.returnValues[0];
+                        });
+                })
+                .catch(function (error) {
+                    console.error(error);
+                });
+        }
+
+        // Subtract function
+        function subtract() {
+            var value = parseInt(document.getElementById('subtractInput').value);
+            web3.eth.requestAccounts()
+                .then(function (accounts) {
+                    var account = accounts[0];
+                    contract.methods.subtract(value).send({ from: account })
+                        .then(function (result) {
+                            // Update the initial value on the frontend
+                            document.getElementById('initialValue').textContent = result.events.ValueChanged.returnValues[0];
+                        });
+                })
+                .catch(function (error) {
+                    console.error(error);
+                });
+        }
+    </script>
+</body>
+
+</html>
