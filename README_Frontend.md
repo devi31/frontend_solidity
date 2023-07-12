@@ -7,6 +7,17 @@ This project demonstrates how to connect solidity contract to the frontend.
 1. Install metamask and connect it to the local host to get some free test ethers.
 2. Install npm package
 
+## Description
+
+This project is a simple example of how to interact with a smart contract from a frontend.
+The HTML code provided is a simple frontend for a smart contract. The contract has three functions: getInitialValue, addition, and subtract. The getInitialValue function returns the initial value of the contract. The addition function adds a specified amount to the initial value, and the subtract function subtracts a specified amount from the initial value.
+
+The frontend code uses the web3 library to interact with the smart contract. The web3.eth.requestAccounts function gets the list of accounts that the user has access to. The contract.methods.addition(value).send({ from: account }) function calls the addition function on the contract, and the value parameter is the amount to be added. The result.events.ValueChanged.returnValues[0] property returns the new value of the contract.
+
+The add and subtract functions in the frontend code use the web3.eth.requestAccounts function to get the user's account, and then they call the corresponding function on the contract. The new value of the contract is then displayed on the frontend.
+
+ 
+
 ## Getting Started
 
 ### Connecting metamask to localhost
