@@ -1,0 +1,7 @@
+Create a project---> go to command prompt -->change the directory to the hardhat project and run the below commands:
+
+cd <project name>
+npm init --y
+npm install hardhat
+npx hardhat
+npx hardhat node
