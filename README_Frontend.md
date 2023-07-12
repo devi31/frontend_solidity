@@ -1,6 +1,8 @@
 # Function Frontend
 This project demonstrates how to connect solidity contract to the frontend.
 
+![Screenshot (521)](https://github.com/devi31/frontend_solidity/assets/52243140/9f307366-03ad-422b-aa40-627627f581f8)
+
 ## Pre-requisites
 1. Install metamask and connect it to the local host to get some free test ethers.
 2. Install npm package
