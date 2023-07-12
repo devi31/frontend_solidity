@@ -5,3 +5,5 @@ npm init --y
 npm install hardhat
 npx hardhat
 npx hardhat node
+
+Go to metamask, select localhost network, import account.
